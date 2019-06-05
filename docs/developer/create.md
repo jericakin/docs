@@ -57,7 +57,7 @@ Check out [our guide on setting up a generator](/developer/setting-up-generator/
 
 To make a .Net generator, you could use this:
 
-<!-- atomist:code-snippet:start=lib/sdm/dotnetCore.ts#poo -->
+<!-- atomist:code-snippet:start=lib/sdm/dotnetCore.ts#poop -->
 ```typescript
 /**
  * .NET Core generator registration
