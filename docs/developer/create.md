@@ -80,5 +80,3 @@ const DotnetCoreGenerator: GeneratorRegistration = {
 ```
 <!-- atomist:code-snippet:end -->
 
-
-
