@@ -3,6 +3,13 @@ an open-source tool that lets you run analysis on repositories and then display 
 Analyze repositories on your computer, or ones from GitHub. Then define your own aspects to answer your own questions about
 all that source code.
 
+!!! note
+If you want a slick web interface for reporting on aspects and drift, plus updates on every push, plus the ability to set targets, plus options to automate pull requests to move code toward those targets, then you want the [Atomist app][web-app].
+
+The org-visualizer project lets you try out Aspects locally with the command line and a developer-facing web interface. This is great for writing and testing your own Aspects. This page will help you get started.
+
+[web-app]: https://app.atomist.com (Atomist app)
+
 The org-visualizer is one example of an Atomist Software Delivery Machine (SDM). For the many other things you can do with one of these, check the [tutorials](developer/tutorials.md).
 
 You'll need Node, npm, git, Postgres, and the Atomist CLI.
