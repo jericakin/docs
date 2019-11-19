@@ -70,7 +70,7 @@ existing Docker images.
 #### Java with Maven
 
 The following YAML snippet defines a goal contribution called `mvn_build`
-that has one goal `container` which will run one Docker image. Specifically
+that has one goal made of `containers` which will run one Docker image. Specifically
 this will run `mvn package` using the standard `maven` Docker image from
 Docker Hub on every Git push.
 
@@ -95,8 +95,8 @@ will be activated on each push.
 
 #### Node with NPM
 
-The following sample adds a 2nd container to run a Mongo database along-side
-a `npm test` container.
+The following sample adds a 2nd container to run a Mongo database alongside
+an `npm test` container.
 
 There is also now a push test called `has_file` that checks for the existence
 of a file called `package.json` to only activate the `npm test` goal when the
@@ -136,14 +136,14 @@ contents of the `node_modules` directory via the `dependencies` cache key.
 Starting the SDM from the previous section, we'll use the Atomist
 CLI and run:
 
-```shell script
+```shell
 $ atomist start --repository-url git@github.com:atomist/samples.git \
       --yaml lib/sdm/yaml/maven-sdm.yaml
 ```
 
 or
 
-```shell script
+```shell
 $ atomist start --repository-url git@github.com:atomist/samples.git \
       --yaml lib/sdm/yaml/npm-sdm.yaml
 ```
