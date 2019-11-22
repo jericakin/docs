@@ -133,27 +133,27 @@ goal set. Regardless of which of those two goals ends up being activated,
 
 Because an SDM can react to events across all of our Git repositories and
 other connected resources, it is important to be able to select which
-goals need to be activated for a specific event. 
+goals need to be activated for a specific event.
 
 For example, a Git push to a project with a Maven `pom.xml` likely requires
 a Maven build to occur and should skip any NPM related goals. Furthermore
-repositories that have a Dockerfile should probably go through a Docker 
+repositories that have a Dockerfile should probably go through a Docker
 build step; for repositories without a Dockerfile, the Docker build goal
-should be skipped or rather not activated. 
+should be skipped or rather not activated.
 
-Which goals to activate is controlled by _Push Tests_ and _Goal Tests_. 
+Which goals to activate is controlled by _Push Tests_ and _Goal Tests_.
 
 ### Push Tests
 
 A _push test_ allows the owner of an SDM to define predicates against
-a project or Git push to determine if a goal should be activated. 
+a project or Git push to determine if a goal should be activated.
 
 Examples for such push tests include:
 
  * check the name of branch against a list of configured names
  * check if the project has a `pom.xml` or `Dockerfile`
  * verify that the change being pushed is more than a documentation change
- 
+
 The following pre-defined push tests are available to be used:
 
 #### `has_file`
@@ -171,7 +171,7 @@ node_build:
 
 `has_file_containing` can be used to check files for the existence of certain
 content. This push test takes two properties: `pattern` to define a glob
-pattern for the files to match and `content` which should be a regular 
+pattern for the files to match and `content` which should be a regular
 expression to check the file content.
 
 The following shows an example that checks if the `package.json` contains
@@ -179,11 +179,11 @@ a reference to the NPM packages `mongoose` or `connect-mongo`.
 
 ```yaml
 node_build:
-  test: 
-  - has_file_containing: 
+  test:
+  - has_file_containing:
       pattern: package.json
       content: mongoose|connect-mongo
-``` 
+```
 
 #### `is_branch`
 
@@ -203,7 +203,7 @@ node_build:
 
 #### `is_default_branch`
 
-This push test is useful to test if a push occurs on the repositories 
+This push test is useful to test if a push occurs on the repositories
 default branch.
 
 ```yaml
@@ -219,7 +219,7 @@ node_build:
 A material change is a concept that can used to determine if a push contains
 changes that require the execution of a full CI/CD pipeline. For example changes
 to the repository's `README.md` or documentation changes shouldn't trigger a
-full build, test and deployment cycle. 
+full build, test and deployment cycle.
 
 ```yaml
 immaterial:
@@ -247,7 +247,6 @@ More on `not` and the `lock` goal further down in this documentation.
 ### Combination of Push Tests
 
 ### Goal Tests
-
 
 ## Defining Goals
 ### Container Goal
