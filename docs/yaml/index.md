@@ -12,13 +12,18 @@ scheduler and host of your delivery goals. **Goals** are the steps
 or jobs that you want to activate when a certain event — like a Git
 push — occurs.
 
-To determine which goals to schedule on a particular Git push, the
+To determine which goals to activate on a particular Git push, the
 SDM introduces the concept of **push tests**.
 
 All goals that pass push tests are compiled into a **goal set** and
 passed for execution to the SDM's goal schedulers.
 
-These goals, push tests, and goal sets are the three core concepts of an SDM.
+These goals, push tests, and goal sets are the three core concepts of
+an SDM.                                                             
+
+In contrast to traditional CI/CD and automation tools, an SDM acts
+on all of your organization's repositories without the need to maintain
+delivery pipelines for each repository. 
 
 #### Goal
 

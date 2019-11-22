@@ -51,7 +51,6 @@ To execute goals in parallel, goals can be nested in arrays. Consider the follow
 example:
 
 ```yaml
-
 node_build:
 
   goals:
@@ -130,9 +129,12 @@ Practically only one of `npm test` or `mvn package` will end up in the final
 goal set. Regardless of which of those two goals ends up being activated,
 `docker build` will only run once the previous build goal is completed.
 
-### Using Container Goals
-### Using Push Tests
-### Activating Goals with Goal Tests
+## Activating Goals
+### Push Tests
+### Goal Tests
+
+## Defining Goals
+### Container Goal 
 ### Environment Variables
 ### Using Secrets
 ### Placeholders in YAML
