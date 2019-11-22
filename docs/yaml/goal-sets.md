@@ -463,7 +463,7 @@ Sets the goal to allow retry in case of failure.
 
 #### `containers.descriptions`
 
-Allows to control the descriptions of the goal. The following keys can be 
+Allows to control the descriptions of the goal. The following keys can be
 defined:
 
   * `canceled`
@@ -480,7 +480,7 @@ defined:
 
 For some of the common delivery goals, secrets are important input:
 e.g. a `docker push` requires to be authenticated against with the
-Docker registry you are pushing to. 
+Docker registry you are pushing to.
 
 #### `containers[].secrets`
 
@@ -495,7 +495,7 @@ docker_build:
       image: docker:latest
       secrets:
         env:
-        - name: 
+        - name:
           value:
             encrypted: >-
               XJKe4+jmdAFkuZB3DrJdlTqAsUGQaaLXRbANhP2IhcyU3A6IRHBOsYIx69t22p2X
@@ -521,12 +521,12 @@ File location of the mounted secret inside the container.
 
 #### `containers[].secrets.{env|file_mounts}[].value`
 
-Secret `value` can come either from reference to resource providers in 
+Secret `value` can come either from reference to resource providers in
 Atomist Graph or from encrypted strings.
 
 #### `containers[].secrets.{env|file_mounts}[].value.provider`
 
-Referencing a resource provider requires setting the `type` of the provider. 
+Referencing a resource provider requires setting the `type` of the provider.
 Currently we support fhr following resource providers:
 
 - `scm`: credentials to operate on the registered SCM
@@ -535,7 +535,7 @@ Currently we support fhr following resource providers:
 - `maven2`: credentials for Maven2 repositories
 - `atomist`: apiKey for the current SDM
 
-To reference a particular set of providers of a certain types the `names` 
+To reference a particular set of providers of a certain types the `names`
 property can be used to provide a list of resource provider names.
 
 #### `containers[].secrets.{env|file_mounts}[].value.encrypted`
@@ -559,11 +559,10 @@ by adding the following block:
       "publicKey": "..."
     }
   }
-} ‚  
+} ‚
 ```
 
 ### Placeholders in YAML
-
 
 ### Using pre-defined Goals
 
