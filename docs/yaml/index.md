@@ -67,12 +67,16 @@ JavaScript. But for these first examples we intent to keep things as
 simple as possible and define the Goal Set in YAML. We will reuse some
 existing Docker images.
 
+#### Scaffold a new SDM
+
+< add instructions on how to create the SDM from a seed>
+
 #### Java with Maven
 
 The following YAML snippet defines a goal contribution called `mvn_build`
-that has one goal made of `containers` which will run one Docker image. Specifically
-this will run `mvn package` using the standard `maven` Docker image from
-Docker Hub on every Git push.
+that has one goal made of `containers` which will run one Docker image. 
+Specifically this will run `mvn package` using the standard `maven` Docker
+image from Docker Hub on every Git push.
 
 ```yaml
 mvn_build:
@@ -130,6 +134,39 @@ node_build:
 Additionally the goal used in this sample, declares that it wants the `node_modules`
 directory cached under the key `dependencies`. This allows later goals to refer to the
 contents of the `node_modules` directory via the `dependencies` cache key.
+
+### Using pre-defined Goals
+
+The above examples can be simplified by using Atomist pre-defined goals. Compare the 
+following goal contribution to the previous version:
+
+```yaml
+mvn_build:
+
+  goals:
+  - atomist/mvn-goal/package@d94a2c8
+```
+Or, using the pre-defined `npm-goal` to simplify the `npm-test`:
+
+```yaml
+node_build:
+
+  test:
+  - has_file: package.json
+
+  goals:
+  - atomist/npm-goal/test@bea07cd
+      containers:
+      - env:
+        - name: MONGODB_URI
+          value: mongodb://mongo:27017/test
+      - name: mongo
+        image: mongo:3.6
+```
+
+Here we are extending the pre-defined goal definition by adding a new
+environment variable to the first container and adding a 2nd mongo
+sidecar container.
 
 ### Running the SDM locally
 
