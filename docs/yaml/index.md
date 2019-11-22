@@ -74,7 +74,7 @@ existing Docker images.
 #### Java with Maven
 
 The following YAML snippet defines a goal contribution called `mvn_build`
-that has one goal made of `containers` which will run one Docker image. 
+that has one goal made of `containers` which will run one Docker image.
 Specifically this will run `mvn package` using the standard `maven` Docker
 image from Docker Hub on every Git push.
 
@@ -137,7 +137,7 @@ contents of the `node_modules` directory via the `dependencies` cache key.
 
 ### Using pre-defined Goals
 
-The above examples can be simplified by using Atomist pre-defined goals. Compare the 
+The above examples can be simplified by using Atomist pre-defined goals. Compare the
 following goal contribution to the previous version:
 
 ```yaml
