@@ -331,24 +331,139 @@ docker_build:
 The above example declares a goal test that matches every goal that finishes
 successfully and its name is prefixed with `build`. Additionally a nested push
 test can be used to further assert the project on which that goal occured. Here
-we only want to activate the Docker build goal for repositoties that have a
+we only want to activate the Docker build goal for repositories that have a
 `Dockerfile`. 
 
 ## Defining Goals
+
+Goals are the activities you want to run on your projects or repositories; goals
+can do things like running a build or executing tests on your projects sources.
+They can also run linters or automatically update the changelog once you release
+a new version of your project. 
+
+For many of these tasks there are tools developers use every day. Most -if not
+all- are available from Docker images in public Docker registries like Docker
+Hub. 
+
+With an SDM you can use Docker images to back a goal; we call that a container
+goal. A container goal allows the SDM author to define common input for running
+Docker containers like environment variables, command and arguments and secrets.
+
+To allow running containers use other serivces like e.g. a Mongo database for 
+integration tests, a container goal can actually define more than one container. 
+
+Atomist and the community provide a catalog of pre-defined container goals 
+that can be referenced in your SDM goal contributions to make defining goals
+and resuing goals across your organization very easy.
+
+Lastly, goals can also be implemented in JavaScript or TypeScript and embedded
+in an SDM. Refer to [Using JavaScript to create a Container Goal]() to more on
+creating goals in code.
+
+### Defining a Container Goal
+
+The following YAML snippet defines a container goal with two containers; one
+Node.JS container running `npm ci && npm test` and a second container making 
+a Mongo database available. 
+
+The Mongo database container is only created for
+repositories that have a dependency to `mongoose` or `connect-mongo` in their
+`package.json`. 
+
+This once again shows the fact that an Atomist SDM can operate and activate
+delivery goals across your entire organization; normally the Mongo database
+requirement would be hard-coded in the repository's build pipeline. 
+
+```yaml
+node_build:  
+  
+  goals:
+
+  - containers:
+    - name: npm-test
+      image: node:8-slim
+      env:
+      - name: NODE_ENV
+        value: development
+      - name: BLUEBIRD_WARNINGS
+        value: '0'
+      args:
+      - sh
+      - -c
+      - npm ci && npm test
+    - name: mongo
+      image: mongo:3.6
+      test:
+      - has_file_containing:
+          glob_pattern: package.json
+          content: mongoose|connect-mongo
+  input:
+  - version
+  output:
+  - classifier: cache
+    pattern:
+      directory: node_modules
+```
+
+The following sections will document the various properties of a Container Goal.
+
+#### `containers[].name`
+
+Required name of the container.
+
+#### `containers[].image`
+
+Required Docker image name of the container.
+
+#### `containers[].command`
+
+Optional Docker image entrypoint.
+
+#### `containers[].args`
+
+Optional Docker command and arguments.
+
+#### `containers[].env`
+
+Optional environment variables to set in Docker container.
+
+#### `containers[].ports`
+
+Optional ports to expose from container.
+
+#### `containers[].volume_mounts`
+
+Optional volumes to mount in container.
+
+A volume mount needs to have a `name` and `mount_path` key. The `name` referes
+to the name of `volume` and `mount_path` is the location the volume should be
+mounted inside the container.
+
+#### `containers[].test`
+
+A push test that enables the container goal only when the push test evaluates
+to `true` for the current repository. 
+
+#### `containers[].secrets`
+
+`secrets` is a way to declare secret requirements and how those requirements
+should be fulfilled. Please refere to [Using Secrets]() for more on secrets.
+
+#### `containers.approval`
+
+Sets the goal to require approval after executing.
+
+#### `containers.pre_approval`
+
+Sets the goal to require a pre-approval before it executes.
+
+#### `containers.retry`
+
+Sets the goal to allow retry in case of failure.
+
 ### Environment Variables
 ### Using Secrets
 ### Placeholders in YAML
 ### Using pre-defined Goals
 
-## Creating custom Container Goals
-### Container Goal Contract
-### Creating your first Container Goal
-### Testing your Container Goal
-### Using JavaScript to create a Container Goal
 
-## Extending the SDM with JavaScript
-### Push Tests
-### Goals
-### Commands
-### Events
-### Testing Goal Sets
