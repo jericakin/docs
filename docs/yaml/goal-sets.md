@@ -134,7 +134,7 @@ goal set. Regardless of which of those two goals ends up being activated,
 ### Goal Tests
 
 ## Defining Goals
-### Container Goal 
+### Container Goal
 ### Environment Variables
 ### Using Secrets
 ### Placeholders in YAML

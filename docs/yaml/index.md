@@ -19,11 +19,11 @@ All goals that pass push tests are compiled into a **goal set** and
 passed for execution to the SDM's goal schedulers.
 
 These goals, push tests, and goal sets are the three core concepts of
-an SDM.                                                             
+an SDM.
 
 In contrast to traditional CI/CD and automation tools, an SDM acts
 on all of your organization's repositories without the need to maintain
-delivery pipelines for each repository. 
+delivery pipelines for each repository.
 
 #### Goal
 
