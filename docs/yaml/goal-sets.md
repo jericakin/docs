@@ -461,8 +461,109 @@ Sets the goal to require a pre-approval before it executes.
 
 Sets the goal to allow retry in case of failure.
 
-### Environment Variables
+#### `containers.descriptions`
+
+Allows to control the descriptions of the goal. The following keys can be 
+defined:
+
+  * `canceled`
+  * `completed`
+  * `failed`
+  * `planned`
+  * `requested`
+  * `stopped`
+  * `waiting_for_approval`
+  * `waiting_for_pre_approval`
+  * `in_process`
+
 ### Using Secrets
+
+For some of the common delivery goals, secrets are important input:
+e.g. a `docker push` requires to be authenticated against with the
+Docker registry you are pushing to. 
+
+#### `containers[].secrets`
+
+Containers can request secrets to be bound into the running container instance
+via environment variables `env` or files on the filesystem `file_mounts`.
+
+```yaml
+docker_build:
+  goals:
+  - containers:
+    - name: docker build
+      image: docker:latest
+      secrets:
+        env:
+        - name: 
+          value:
+            encrypted: >-
+              XJKe4+jmdAFkuZB3DrJdlTqAsUGQaaLXRbANhP2IhcyU3A6IRHBOsYIx69t22p2X
+              rru2z+qog/G7ItVoBdt2v0lyyjKF9d+TUsm3/58pdaCet2NWSvX8ZKDSPb0OmUxS
+              Yl0JMxw/VtBsSl6fum3AL5lf/sYRZHUtIly9G6ptdsrKg9DKASwd1hWqxQvNgEVr
+              oWCaoZ8gbfDyMVlfVwtpxPod7ur3HfGOY7apa6UM2v88nfmzZx1jSDiGzRgUz9FF
+              ELozZ+Omru02BfmS1ymqr+saf6DegKCSZXnmzfneA+XFrpgLOpmQF0XSbB9ThLTk
+              y3hKAC6sy3rBCjYjJhnjcQ==
+        file_mounts:
+        - mount_path: /root/.docker/config.json
+          value:
+            provider:
+              type: docker
+```
+
+#### `containers[].secrets.env[].name`
+
+Name of the environment variable containing the secret value.
+
+#### `containers[].secrets.file_mounts[].mount_path`
+
+File location of the mounted secret inside the container.
+
+#### `containers[].secrets.{env|file_mounts}[].value`
+
+Secret `value` can come either from reference to resource providers in 
+Atomist Graph or from encrypted strings.
+
+#### `containers[].secrets.{env|file_mounts}[].value.provider`
+
+Referencing a resource provider requires setting the `type` of the provider. 
+Currently we support fhr following resource providers:
+
+- `scm`: credentials to operate on the registered SCM
+- `docker`: credentials for Docker registries
+- `npm`: credentials for NPM registries
+- `maven2`: credentials for Maven2 repositories
+- `atomist`: apiKey for the current SDM
+
+To reference a particular set of providers of a certain types the `names` 
+property can be used to provide a list of resource provider names.
+
+#### `containers[].secrets.{env|file_mounts}[].value.encrypted`
+
+By specifying a public/private key pair in the SDM configuration, this can
+be used to embed encyrpted values into the YAML definition.
+
+In order to use the encryption feature, the SDM needs to have access to
+your private encyrption key and passphrase. This key will never leave your
+machine and won't be made known to Atomist.
+
+Configure the private key and passphase in your `~/.atomist/client.config.json`
+by adding the following block:
+
+ ```json
+ {
+  "sdm": {
+    "encryption": {
+      "passphrase": "...",
+      "privateKey": "...",
+      "publicKey": "..."
+    }
+  }
+} ‚  
+```
+
 ### Placeholders in YAML
+
+
 ### Using pre-defined Goals
 
