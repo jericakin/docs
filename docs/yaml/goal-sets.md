@@ -564,11 +564,11 @@ by adding the following block:
 
 ### Placeholders in YAML
 
-Container goal definitions can reference values from the current goal when 
+Container goal definitions can reference values from the current goal when
 executing (e.g. the Git push the goal is operating on) and the SDM `configuration`
 object.
 
-Here's an example on how to use those placeholders in a container goal 
+Here's an example on how to use those placeholders in a container goal
 defintion:
 
 ```yaml
@@ -590,19 +590,19 @@ node_test:
 ```
 
 The `${images.node}` placeholder is resolved against the `configuration` object
-defined at the top of the YAML block. It will resolve to `node:lts`. 
+defined at the top of the YAML block. It will resolve to `node:lts`.
 
-`${push.repo.owner}/${push.repo.name}` will resolve to the slug of the 
+`${push.repo.owner}/${push.repo.name}` will resolve to the slug of the
 repository the goal is executing on. `push` is a property of the `SdmGoalEvent`
 which is defined in the [SDM](https://github.com/atomist/sdm/blob/master/lib/api/goal/SdmGoalEvent.ts#L33)
 
 ### Using pre-defined Goals
 
 Pre-defined goals are container goals that are contributed by Atomist or the
-community and make bringing common goals in your SDM very easy. 
+community and make bringing common goals in your SDM very easy.
 
 Atomist's [NPM goal]() is an example for such a pre-defined goal. You can bring
-it into your SDM simply by referencing the GitHub repository as outlined in 
+it into your SDM simply by referencing the GitHub repository as outlined in
 the following example:
 
 ```yaml
@@ -612,14 +612,14 @@ node_build:
       parameters:
         command: build
 ```
-A reference to a pre-defined goal has to follow the syntax 
+A reference to a pre-defined goal has to follow the syntax
 `<owner>/<repository>/<goal name>@<git reference>`. The Git reference at the
  end is optional but highly recommended to achieve repeatable builds.
 
 Above example provides an optional parameter to the `compile` goal called
 `command`.
 
-It also possible to overwrite or extend any properties of the pre-defined goal. 
+It also possible to overwrite or extend any properties of the pre-defined goal.
 Imagine you need to define an additional environment variable to pass into the
 Docker container backing the goal. This can be achived as demonstrated in the
 following example:
